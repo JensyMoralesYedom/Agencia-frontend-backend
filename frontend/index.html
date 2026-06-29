@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoMax - Gestion de Vehiculos</title>
+    <link rel="stylesheet" href="stilo.css">
+</head>
+
+<body>
+
+<!-- ===== MODAL DE AUTENTICACION ===== -->
+<div id="authModal" class="auth-modal">
+    <div class="auth-container">
+        <div class="auth-left">
+            <img src="img/logo.png" class="auth-logo" alt="AutoMax">
+            <h1>AutoMax</h1>
+            <p>Tu agencia de vehiculos de confianza</p>
+            <div class="auth-car-icon">
+                <svg viewBox="0 0 24 24" fill="white" width="80" height="80">
+                    <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="auth-right">
+            <div class="auth-forms">
+                <!-- Formulario de Login -->
+                <div id="loginForm" class="auth-form active">
+                    <h2>Iniciar Sesion</h2>
+                    <form id="formLogin">
+                        <div class="input-group">
+                            <input type="email" id="loginCorreo" placeholder="Correo electronico" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                        </div>
+                        <div id="loginError" class="error-message"></div>
+                        <button type="submit" class="btn-primary">Ingresar</button>
+                    </form>
+
+                    <div class="auth-divider">
+                        <span>o</span>
+                    </div>
+
+                    <button id="btnGuest" class="btn-guest">
+                        Entrar como Invitado
+                    </button>
+
+                    <p class="auth-switch">
+                        No tienes cuenta? <a href="#" id="showRegister">Registrate aqui</a>
+                    </p>
+                </div>
+
+                <!-- Formulario de Registro -->
+                <div id="registerForm" class="auth-form">
+                    <h2>Crear Cuenta</h2>
+                    <form id="formRegister">
+                        <div class="input-group">
+                            <input type="text" id="regNombre" placeholder="Nombre completo" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="regCorreo" placeholder="Correo electronico" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="regPassword" placeholder="Contraseña" required>
+                            <div class="password-requirements" id="passwordReqs">
+                                <small>Minimo 8 caracteres</small>
+                                <small>Una mayuscula</small>
+                                <small>Una minuscula</small>
+                                <small>Un numero</small>
+                                <small>Un caracter especial (!@#$%...)</small>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="regPasswordConfirm" placeholder="Confirmar contraseña" required>
+                        </div>
+                        <div id="registerError" class="error-message"></div>
+                        <div id="registerSuccess" class="success-message"></div>
+                        <button type="submit" class="btn-primary">Crear Cuenta</button>
+                    </form>
+
+                    <p class="auth-switch">
+                        Ya tienes cuenta? <a href="#" id="showLogin">Inicia sesion</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== APLICACION PRINCIPAL ===== -->
+<div id="mainApp" class="main-app hidden">
+
+<header>
+    <div class="encabezado">
+        <div class="logo-container">
+            <img src="img/logo.png" class="logo" alt="AutoMax">
+            <div class="info-header">
+                <h1>AutoMax</h1>
+                <p>Sistema de Gestion de Vehiculos</p>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#formulario">Registrar Vehiculo</a></li>
+                <li><a href="#tablaVehiculos">Consultar Vehiculos</a></li>
+            </ul>
+            <div class="user-info">
+                <span id="userDisplay"></span>
+                <button id="btnLogout" class="btn-logout">Cerrar Sesion</button>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section id="inicio" class="bienvenida">
+        <h2>Bienvenido a AutoMax</h2>
+        <p>
+            AutoMax es una plataforma disenada para la gestion y control de vehiculos
+            disponibles para la venta. Desde este portal podras registrar,
+            consultar, actualizar y eliminar informacion de los vehiculos de manera
+            rapida y segura.
+        </p>
+        <p>
+            Los datos se almacenan en una base de datos PostgreSQL mediante una API con Node.js y Express.
+        </p>
+    </section>
+
+    <section id="formulario">
+        <h2>Registro de Vehiculos</h2>
+        <form id="vehiculoForm">
+            <input type="text" id="codigo" placeholder="Codigo" required>
+            <input type="text" id="marca" placeholder="Marca" required>
+            <input type="text" id="modelo" placeholder="Modelo" required>
+            <input type="number" id="anio" placeholder="Anio" required>
+            <input type="text" id="color" placeholder="Color" required>
+            <select id="combustible" required>
+                <option value="">Seleccione combustible</option>
+                <option>Gasolina</option>
+                <option>Diésel</option>
+                <option>Electrico</option>
+                <option>Hibrido</option>
+            </select>
+            <input type="number" id="precio" placeholder="Precio" required>
+            <input type="number" id="cantidad" placeholder="Cantidad Disponible" required>
+            <textarea id="descripcion" placeholder="Descripcion" required></textarea>
+            <button type="submit">Guardar Vehiculo</button>
+        </form>
+    </section>
+
+    <section id="tablaVehiculos">
+        <h2>Vehiculos Registrados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Anio</th>
+                    <th>Color</th>
+                    <th>Combustible</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="listaVehiculos"></tbody>
+        </table>
+    </section>
+</main>
+</div>
+
+<!-- Toast de notificaciones -->
+<div id="toast" class="toast hidden"></div>
+
+<script src="auth.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
