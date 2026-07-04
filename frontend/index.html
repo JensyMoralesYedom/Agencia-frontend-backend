@@ -103,9 +103,12 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#formulario">Registrar Vehiculo</a></li>
-                <li><a href="#tablaVehiculos">Consultar Vehiculos</a></li>
+                <li><a href="#inicio" class="nav-link active" data-section="inicio">Inicio</a></li>
+                <li><a href="#nuevos" class="nav-link" data-section="nuevos">Vehiculos nuevos</a></li>
+                <li><a href="#usados" class="nav-link" data-section="usados">Vehiculos usados</a></li>
+                <li><a href="#nosotros" class="nav-link" data-section="nosotros">Nosotros</a></li>
+                <li><a href="#sucursales" class="nav-link" data-section="sucursales">Sucursales</a></li>
+                <li><a href="#formulario" class="nav-link" data-section="formulario">Registro de vehiculos</a></li>
             </ul>
             <div class="user-info">
                 <span id="userDisplay"></span>
@@ -116,54 +119,192 @@
 </header>
 
 <main>
-    <section id="inicio" class="bienvenida">
-        <h2>Bienvenido a AutoMax</h2>
-        <p>
-            AutoMax es una plataforma disenada para la gestion y control de vehiculos
-            disponibles para la venta. Desde este portal podras registrar,
-            consultar, actualizar y eliminar informacion de los vehiculos de manera
-            rapida y segura.
-        </p>
-        <p>
-            Los datos se almacenan en una base de datos PostgreSQL mediante una API con Node.js y Express.
-        </p>
+    <!-- Inicio -->
+    <section id="inicio" class="page-section active">
+        <div class="bienvenida">
+            <h2>Bienvenido a AutoMax</h2>
+            <p>
+                AutoMax es una plataforma disenada para la gestion y control de vehiculos
+                disponibles para la venta. Desde este portal podras registrar,
+                consultar, actualizar y eliminar informacion de los vehiculos de manera
+                rapida y segura.
+            </p>
+            <p>
+                Los datos se almacenan en una base de datos PostgreSQL mediante una API con Node.js y Express.
+            </p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40">
+                        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                    </svg>
+                </div>
+                <h3 id="statTotal">0</h3>
+                <p>Vehiculos Registrados</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon nuevos">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <h3 id="statNuevos">0</h3>
+                <p>Vehiculos Nuevos</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon usados">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40">
+                        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/>
+                    </svg>
+                </div>
+                <h3 id="statUsados">0</h3>
+                <p>Vehiculos Usados</p>
+            </div>
+        </div>
     </section>
 
-    <section id="formulario">
+    <!-- Vehiculos nuevos -->
+    <section id="nuevos" class="page-section">
+        <h2>Vehiculos Nuevos</h2>
+        <p class="section-desc">Explora nuestra seleccion de vehiculos nuevos disponibles.</p>
+        <div id="listaNuevos" class="vehicle-grid"></div>
+    </section>
+
+    <!-- Vehiculos usados -->
+    <section id="usados" class="page-section">
+        <h2>Vehiculos Usados</h2>
+        <p class="section-desc">Encuentra los mejores vehiculos usados a precios increibles.</p>
+        <div id="listaUsados" class="vehicle-grid"></div>
+    </section>
+
+    <!-- Nosotros -->
+    <section id="nosotros" class="page-section">
+        <h2>Nosotros</h2>
+        <div class="nosotros-content">
+            <div class="nosotros-texto">
+                <p>
+                    <strong>AutoMax</strong> es una concesionaria lider en la venta de vehiculos nuevos y usados.
+                    Con anos de experiencia en el mercado automotriz, nos dedicamos a ofrecer a nuestros clientes
+                    la mejor relacion calidad-precio y un servicio personalizado.
+                </p>
+                <p>
+                    Nuestra mision es ayudar a cada cliente a encontrar el vehiculo perfecto para sus necesidades,
+                    brindando asesoramiento profesional y garantizando la satisfaccion en cada compra.
+                </p>
+                <p>
+                    Contamos con un equipo de profesionales capacitados que te acompanaran durante todo el proceso
+                    de seleccion y compra de tu vehiculo.
+                </p>
+            </div>
+            <div class="nosotros-valores">
+                <h3>Nuestros Valores</h3>
+                <ul>
+                    <li>Transparencia en cada transaccion</li>
+                    <li>Calidad y confiabilidad</li>
+                    <li>Atencion al cliente personalizada</li>
+                    <li>Compromiso con la satisfaccion</li>
+                    <li>Precios competitivos</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sucursales -->
+    <section id="sucursales" class="page-section">
+        <h2>Nuestras Sucursales</h2>
+        <div class="sucursales-grid">
+            <div class="sucursal-card">
+                <h3>Sucursal Central</h3>
+                <p><strong>Direccion:</strong> Av. Principal 1234, Ciudad</p>
+                <p><strong>Telefono:</strong> (555) 123-4567</p>
+                <p><strong>Horario:</strong> Lun - Sab: 9:00 AM - 7:00 PM</p>
+            </div>
+            <div class="sucursal-card">
+                <h3>Sucursal Norte</h3>
+                <p><strong>Direccion:</strong> Blvd. del Norte 567, Zona Norte</p>
+                <p><strong>Telefono:</strong> (555) 234-5678</p>
+                <p><strong>Horario:</strong> Lun - Sab: 9:00 AM - 7:00 PM</p>
+            </div>
+            <div class="sucursal-card">
+                <h3>Sucursal Sur</h3>
+                <p><strong>Direccion:</strong> Av. del Sur 890, Zona Sur</p>
+                <p><strong>Telefono:</strong> (555) 345-6789</p>
+                <p><strong>Horario:</strong> Lun - Sab: 9:00 AM - 7:00 PM</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registro de vehiculos -->
+    <section id="formulario" class="page-section">
         <h2>Registro de Vehiculos</h2>
         <form id="vehiculoForm">
-            <input type="text" id="codigo" placeholder="Codigo" required>
-            <input type="text" id="marca" placeholder="Marca" required>
-            <input type="text" id="modelo" placeholder="Modelo" required>
-            <input type="number" id="anio" placeholder="Anio" required>
-            <input type="text" id="color" placeholder="Color" required>
-            <select id="combustible" required>
-                <option value="">Seleccione combustible</option>
-                <option>Gasolina</option>
-                <option>Diésel</option>
-                <option>Electrico</option>
-                <option>Hibrido</option>
-            </select>
-            <input type="number" id="precio" placeholder="Precio" required>
-            <input type="number" id="cantidad" placeholder="Cantidad Disponible" required>
-            <textarea id="descripcion" placeholder="Descripcion" required></textarea>
-            <button type="submit">Guardar Vehiculo</button>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="marca">Marca</label>
+                    <input type="text" id="marca" placeholder="Marca del vehiculo" required>
+                </div>
+                <div class="form-group">
+                    <label for="modelo">Modelo</label>
+                    <input type="text" id="modelo" placeholder="Modelo del vehiculo" required>
+                </div>
+                <div class="form-group">
+                    <label for="anio">Anio</label>
+                    <input type="number" id="anio" placeholder="Anio" min="1900" max="2030" required>
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio ($)</label>
+                    <input type="number" id="precio" placeholder="Precio" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="color">Color</label>
+                    <input type="text" id="color" placeholder="Color del vehiculo" required>
+                </div>
+                <div class="form-group">
+                    <label for="transmision">Transmision</label>
+                    <select id="transmision" required>
+                        <option value="">Seleccione transmision</option>
+                        <option>Manual</option>
+                        <option>Automatica</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="combustible">Combustible</label>
+                    <select id="combustible" required>
+                        <option value="">Seleccione combustible</option>
+                        <option>Gasolina</option>
+                        <option>Diesel</option>
+                        <option>Electrico</option>
+                        <option>Hibrido</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="imagen">URL Imagen</label>
+                    <input type="url" id="imagen" placeholder="URL de la imagen del vehiculo">
+                </div>
+                <div class="form-group full-width">
+                    <label for="descripcion">Descripcion</label>
+                    <textarea id="descripcion" placeholder="Descripcion del vehiculo" required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn-submit">Guardar Vehiculo</button>
         </form>
     </section>
 
-    <section id="tablaVehiculos">
+    <!-- Consulta de vehiculos -->
+    <section id="tablaVehiculos" class="page-section">
         <h2>Vehiculos Registrados</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Codigo</th>
                     <th>Marca</th>
                     <th>Modelo</th>
                     <th>Anio</th>
-                    <th>Color</th>
-                    <th>Combustible</th>
                     <th>Precio</th>
-                    <th>Cantidad</th>
+                    <th>Color</th>
+                    <th>Transmision</th>
+                    <th>Combustible</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
