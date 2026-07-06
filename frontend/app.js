@@ -304,6 +304,10 @@ async function mostrarVehiculos() {
         const res = await fetch(`${API_URL}/vehiculos`, {
             headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
         });
+        if (!res.ok) {
+            const data = await res.json();
+            throw new Error(data.error || "Error del servidor");
+        }
         const vehiculos = await res.json();
 
         document.getElementById("statTotal").textContent = vehiculos.length;
@@ -329,7 +333,7 @@ async function mostrarVehiculos() {
 
         listaVehiculos.innerHTML = html || '<tr><td colspan="8" style="text-align:center">No hay vehiculos registrados</td></tr>';
     } catch (error) {
-        showToast("Error cargando vehiculos", "error");
+        showToast(`Error cargando vehiculos: ${error.message}`, "error");
     }
 }
 
@@ -338,6 +342,10 @@ async function mostrarVehiculosFiltrados(tipo) {
         const res = await fetch(`${API_URL}/vehiculos`, {
             headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
         });
+        if (!res.ok) {
+            const data = await res.json();
+            throw new Error(data.error || "Error del servidor");
+        }
         const vehiculos = await res.json();
 
         const containerId = tipo === "nuevo" ? "listaNuevos" : "listaUsados";
@@ -362,7 +370,7 @@ async function mostrarVehiculosFiltrados(tipo) {
 
         container.innerHTML = html || '<p style="text-align:center; grid-column:1/-1;">No hay vehiculos disponibles</p>';
     } catch (error) {
-        showToast("Error cargando vehiculos", "error");
+        showToast(`Error cargando vehiculos: ${error.message}`, "error");
     }
 }
 
